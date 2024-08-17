@@ -1,0 +1,23 @@
+/* scroll bar styling */
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(174, 174, 174, 0.564);
+  
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 50px;
+  height: 10px;
+  width: 10px;
+}
