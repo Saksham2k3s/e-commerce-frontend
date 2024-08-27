@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductDetails } from "../redux/slice/ProductDetailSlice";
 import { addIntoCart } from "../redux/slice/CartSlice";
+import ImageCarousel from '../components/ImageCarousel'
 
 function ProductDetail() {
   const stars = [1, 2, 3, 4, 5];
@@ -62,9 +63,16 @@ function ProductDetail() {
     <>
       <div className="px-5 md:px-40 flex flex-col gap-10 lg:gap-20 ">
         {/* Product Details */}
-        <div className="flex gap-4 w-full">
+        <div className=" flex flex-col lg:flex-row gap-4 w-full">
           {/* Product Images */}
-          <div className="flex flex-wrap gap-5 w-1/2 py-5 ">
+          <div className="w-full lg:w-1/2" >
+          <div className="block lg:hidden" >
+             <div className="w-full" >
+           <ImageCarousel images = {productDetail?.images} />
+          </div>
+          </div>
+          <div className="hidden lg:block " >
+          <div className="flex flex-wrap gap-5 w-full py-5 ">
             {productDetail.images.map((image, idx) => {
               return (
                 <img
@@ -75,10 +83,13 @@ function ProductDetail() {
                 />
               );
             })}
+            </div>
+            </div>
           </div>
+
           {/* Other details */}
           
-          <div className=" relative flex flex-col flex-wrap gap-5 w-1/2 pr-0 lg:pr-20">
+          <div className=" relative flex flex-col flex-wrap gap-5 w-full lg:w-1/2  pr-0 lg:pr-20">
           { user.role === 'admin' && <div className=" " >
              <Link to={`/admin/edit/${productDetail._id}`} className=" absolute top-6 right-2 bg-black font-button-s text-white px-3 py-2 font-semibold rounded-full text-sm" >Edit product</Link>
           </div> }
@@ -98,14 +109,14 @@ function ProductDetail() {
                 {productDetail.name}
               </div>
               <div className="text-darkslategray font-button-s text-md leading-6 tracking-wide">
-                {productDetail.description}
+              {productDetail.description}
               </div>
               <div className="flex gap-5">
                 <div className="text-black font-headline-4 text-2xl">
-                  {productDetail.discountPrice}
+                ${productDetail.discountPrice}
                 </div>
                 <div className="[text-decoration:line-through] text-neutral-04-100 text-lg">
-                  {productDetail.actualPrice}
+                ${productDetail.actualPrice}
                 </div>
               </div>
               <div className="text-md font-button-s text-darkslategray font-semibold">
@@ -154,7 +165,6 @@ function ProductDetail() {
             <button className="cursor-pointer border-none py-[9px] px-[74px] bg-neutral-07-100 text-white shadow-[0px_8px_16px_rgba(0,_0,_0,_0.04)] rounded-lg flex flex-row items-center justify-center" onClick={handleProductAddingIntoCart} >
               Add to Cart
             </button>
-
             <div>
               {additionalInfos.map((info, index) => (
                info.title && info.content && <div key={index} className="mt-4 w-full">
@@ -185,7 +195,7 @@ function ProductDetail() {
         <div
           className={`static w-full flex flex-row items-end justify-between gap-[20px] text-left text-[40px] text-neutral-07-100 font-poppins`}
         >
-          <Link className="text-4xl">
+          <Link className="text-2xl lg:4xl">
             <p className="m-0">You might also like</p>
           </Link>
           <div className="flex flex-row items-center justify-start gap-[4px] text-base text-neutral-07-100 font-button-s border-b-[1px] border-solid border-neutral-07-100">
@@ -200,9 +210,10 @@ function ProductDetail() {
       </div>
 
       {/* product list */}
-      <div className="mt-20 px-5 pl-0 md:pl-40 md:px-0">
+      <div className="mt-20 px-5 pl-0 md:pl-40 md:px-0 ">
         <ProductsList />
       </div>
+
 
       {/* Newsletter Section Start */}
       <div

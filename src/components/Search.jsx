@@ -10,7 +10,7 @@ function Search() {
     }
   return (
    
-      <div className='border border-darkslategray text-darkslategray rounded-full flex w-[20%] bg-white px-5 gap-4 justify-start items-center align-middle' >
+      <div className='border border-darkslategray text-darkslategray rounded-full flex w-[100%] lg:w-[50%] bg-white px-5 gap-4 justify-start items-center align-middle py-3 ' >
        <div className=' cursor-pointer ' onClick={handleSearch} >
        <RiSearchLine size={20} />
        </div>

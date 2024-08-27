@@ -65,7 +65,7 @@ function App() {
             }}
           />
           {user && <Navbar />}
-          {user && <Breadcrumb />}
+          {/* {user && <Breadcrumb />} */}
           <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop/>} />

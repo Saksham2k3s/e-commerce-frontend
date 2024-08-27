@@ -18,7 +18,7 @@ const Breadcrumb = () => {
     <nav className=" p-3 rounded px-5 md:px-40 bg-gray-100 ">
       <ol className="list-reset flex text-gray-700">
         <li className="breadcrumb-item">
-          <Link to="/" className="text-blue-600 hover:text-blue-800">Home</Link>
+          <Link to="/" className="text-blue-600 hover:text-blue-800 text-sm md:text-md ">Home</Link>
         </li>
         {filteredPathnames.map((value, index) => {
           const to = `/${filteredPathnames.slice(0, index + 1).join('/')}`;
@@ -30,7 +30,7 @@ const Breadcrumb = () => {
               {index === filteredPathnames.length - 1 ? (
                 <span>{label}</span>
               ) : (
-                <Link to={to} className="text-blue-600 hover:text-blue-800">{label}</Link>
+                <Link to={to} className="text-blue-600 hover:text-blue-800 text-sm md:text-md ">{label}</Link>
               )}
             </li>
           );

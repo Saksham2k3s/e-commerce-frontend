@@ -11,6 +11,7 @@ import { setLogout, setUser } from "../redux/slice/AuthSlice";
 import toast from "react-hot-toast";
 import Cart from "./Cart";
 import { getUserCart } from "../redux/slice/CartSlice";
+
 function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,9 +44,9 @@ function Navbar() {
       );
       if (response.data.success) {
         console.log("logout");
-        toast.success("Logged Out!")
+        toast.success("Logged Out!");
         dispatch(setLogout());
-        dispatch(setUser(null))
+        dispatch(setUser(null));
         navigate("/login");
       }
     } catch (error) {
@@ -55,10 +56,14 @@ function Navbar() {
 
   return (
     <>
-      <div className="max-w-screen bg-white flex flex-row items-center justify-between py-4 px-10 lg:px-40 leading-normal gap-5 text-center text-black font-poppins">
+      <div className="w-full bg-white flex flex-row items-center justify-between py-4 px-10 lg:px-40 leading-normal gap-5 text-center text-black font-poppins">
         {/* Logo */}
         <Link className="font-medium inline-block min-w-[105px]">
-          <img src={logo} alt="logo-img" className="w-[105px] h-[24px]" />
+          <img
+            src={logo}
+            alt="logo-img"
+            className="w-[50px] md:w-[105px] h-[20px] md:h-[24px]"
+          />
         </Link>
 
         {/* Navbar Toggler for Mobile */}
@@ -67,9 +72,9 @@ function Navbar() {
           onClick={toggleMenu}
         >
           {menuOpen ? (
-            <RxCross1 size={30} />
+            <RxCross1 className="text-sm md:text-lg lg:text-xl" />
           ) : (
-            <RiBarChartHorizontalLine size={30} />
+            <RiBarChartHorizontalLine className="text-sm md:text-lg lg:text-xl" />
           )}
         </button>
 
@@ -95,26 +100,27 @@ function Navbar() {
         </div>
 
         {/* Icons */}
-        {
-          user !== null ? (
-            <div className="flex flex-row gap-4 justify-between align-middle items-center text-gray-500 text-4xl font-semibold">
-          <div className="cursor-pointer">
-            <RiSearchLine size={30} />
-          </div>
-          <div className="cursor-pointer w-full relative">
-            <HiOutlineShoppingBag size={30} onClick={toggleCartMenu} />
-            <div className=" absolute -top-1 -right-1 bg-black h-4 w-4 text-white p-1 text-[8px] font-bold rounded-full flex justify-center align-middle items-center  ">
-              {cart?.length}
+        {user !== null ? (
+          <div className="flex flex-row gap-4 justify-between align-middle items-center text-gray-500 text-4xl font-semibold">
+            <div className="cursor-pointer">
+              <RiSearchLine className="text-sm md:text-lg lg:text-xl" />
+            </div>
+            <div className="cursor-pointer w-full relative">
+              <HiOutlineShoppingBag
+                className="text-sm md:text-lg lg:text-xl"
+                onClick={toggleCartMenu}
+              />
+              <div className="absolute -top-1 -right-1 bg-black h-2 w-2 lg:h-4 lg:w-4 text-white p-1 text-[8px] font-bold rounded-full flex justify-center align-middle items-center">
+                {cart?.length}
+              </div>
+            </div>
+            <div className="cursor-pointer" onClick={toggleUserMenu}>
+              <LuUserCircle2 className="text-sm md:text-lg lg:text-xl" />
             </div>
           </div>
-          <div className="cursor-pointer" onClick={toggleUserMenu}>
-            <LuUserCircle2 size={30} />
-          </div>
-        </div>
-          ) : (
-            <div>Login/SignUp</div>
-          )
-        }
+        ) : (
+          <div>Login/SignUp</div>
+        )}
       </div>
 
       {/* Mobile Menu */}
@@ -128,12 +134,12 @@ function Navbar() {
           onClick={toggleMenu}
         >
           {menuOpen ? (
-            <RxCross1 size={30} />
+            <RxCross1 className="text-sm md:text-lg lg:text-xl" />
           ) : (
-            <RiBarChartHorizontalLine size={30} />
+            <RiBarChartHorizontalLine className="text-sm md:text-lg lg:text-xl" />
           )}
         </button>
-        <div className="flex flex-col gap-10 text-gray-500 text-md font-semibold">
+        <div className="flex flex-col gap-10 text-gray-500 text-sm md:text-md font-semibold">
           <Link to="/" onClick={toggleMenu}>
             Home
           </Link>
@@ -146,6 +152,11 @@ function Navbar() {
           <Link to="/contact" onClick={toggleMenu}>
             Contact Us
           </Link>
+          {user && user.role === "admin" && (
+            <Link to="/dashboard" onClick={toggleMenu}>
+              Dashboard
+            </Link>
+          )}
         </div>
       </div>
 
@@ -160,9 +171,9 @@ function Navbar() {
           onClick={toggleUserMenu}
         >
           {userProfileMenuOpen ? (
-            <RxCross1 size={30} />
+            <RxCross1 className="text-sm md:text-lg lg:text-xl" />
           ) : (
-            <RiBarChartHorizontalLine size={30} />
+            <RiBarChartHorizontalLine className="text-sm md:text-lg lg:text-xl" />
           )}
         </button>
         <div className="flex flex-col gap-10 text-gray-500 text-md font-semibold">
@@ -184,7 +195,7 @@ function Navbar() {
 
       {/* Cart Toggler */}
       <div
-        className={`fixed top-0 right-0 z-30 w-[30%] h-full bg-white flex flex-col transition-transform transform ${
+        className={`fixed top-0 right-0 z-30 w-[80%] md:w-[50%] lg:w-[30%] h-full bg-white flex flex-col transition-transform transform ${
           cartOpen ? "translate-y-0" : "translate-y-full"
         }`}
       >
@@ -193,9 +204,9 @@ function Navbar() {
           onClick={toggleCartMenu}
         >
           {cartOpen ? (
-            <RxCross1 size={20} />
+            <RxCross1 className="text-sm md:text-lg lg:text-xl" />
           ) : (
-            <RiBarChartHorizontalLine size={20} />
+            <RiBarChartHorizontalLine className="text-sm md:text-lg lg:text-xl" />
           )}
         </button>
         <div>

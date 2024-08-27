@@ -1,12 +1,30 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const REACT_APP_PRODUCT_API_URL = process.env.REACT_APP_PRODUCT_API_URL;
+
+// Helper function to construct query parameters string
+const buildQueryParams = (params) => {
+  const queryParams = new URLSearchParams();
+
+  // Only append parameters if they have values
+  if (params.page) queryParams.append('page', params.page);
+  if (params.query) queryParams.append('keyword', params.query);
+  if (params.category) queryParams.append('category', params.category);
+
+  return queryParams.toString();
+};
+
 export const fetchProducts = createAsyncThunk(
   "productSlice/fetchProducts",
-  async ({page = 1, query = ''}, { rejectWithValue }) => {
+  async ({page = 1, query = '', category = ''}, { rejectWithValue }) => {
     try {
+
+      // Build the query parameters string
+      const queryParams = buildQueryParams({ page, query, category });
+
       const result = await axios.get(
-        `http://localhost:3001/api/v1/product/all?page=${page}&keyword=${query}`,
+        `${REACT_APP_PRODUCT_API_URL}/all?${queryParams}`,
         {
           headers: {
             "Content-Type": "application/json",

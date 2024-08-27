@@ -1,5 +1,6 @@
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { CiMoneyBill, CiLock, CiPhone } from "react-icons/ci";
+import carouselImage from "../assets/Paste image.png";
 export const valueCardData = [
     {
         Icon : <LiaShippingFastSolid size={48} />,
@@ -22,3 +23,12 @@ export const valueCardData = [
         subtitle : 'Phone and Email Support'
     },
 ]
+
+export const carouselImages = [
+    {
+       url : carouselImage
+    },
+    {
+        url : carouselImage
+    }
+];
